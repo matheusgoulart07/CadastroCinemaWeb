@@ -30,12 +30,17 @@ public class CinemaService {
         repository.deleteByNome(nome);
     }
 
-    public void atualizarCinemaPorNome(String nome, Cinema cinema){
-        Cinema cinemaEntity = buscarCinemaPorNome(nome);
+    public void atualizarCinemaPorId(Integer id, Cinema cinema){
+        Cinema cinemaEntity = repository.findById(id).orElseThrow(() ->
+                new RuntimeException("Filme não encontrado"));
         Cinema cinemaAtualizado = Cinema.builder()
-                .nome(nome)
-                .nome(cinema.getNome() != null ? cinema.getNome() : cinemaEntity.getNome())
-                .id(usuarioEntity.getId())
+                .nome(cinema.getNome() != null ? cinema.getNome() :
+                        cinemaEntity.getNome())
+                .nome(cinema.getNome() != null ? cinema.getNome() :
+                        cinemaEntity.getNome())
+                .id(cinemaEntity.getId())
                 .build();
+
+        repository.saveAndFlush(cinemaAtualizado);
     }
 }

@@ -18,7 +18,7 @@ public class Cinema {
     private Integer id;
 
     @Column(name = "nome", unique = true)
-    private String name;
+    private String nome;
 
     @Column(name = "genero")
     private String genero;
