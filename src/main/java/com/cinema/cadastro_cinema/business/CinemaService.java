@@ -32,13 +32,15 @@ public class CinemaService {
 
     public void atualizarCinemaPorId(Integer id, Cinema cinema){
         Cinema cinemaEntity = repository.findById(id).orElseThrow(() ->
-                new RuntimeException("Filme não encontrado"));
+                new RuntimeException("Cinema não encontrado"));
+
         Cinema cinemaAtualizado = Cinema.builder()
-                .nome(cinema.getNome() != null ? cinema.getNome() :
-                        cinemaEntity.getNome())
-                .nome(cinema.getNome() != null ? cinema.getNome() :
-                        cinemaEntity.getNome())
                 .id(cinemaEntity.getId())
+                .nome(cinema.getNome() != null ? cinema.getNome() : cinemaEntity.getNome())
+                .genero(cinema.getGenero() != null ? cinema.getGenero() : cinemaEntity.getGenero())
+                .anoLancamento(cinema.getAnoLancamento() != null ? cinema.getAnoLancamento() : cinemaEntity.getAnoLancamento())
+                .bilheteria(cinema.getBilheteria() != null ? cinema.getBilheteria() : cinemaEntity.getBilheteria())
+                .nota(cinema.getNota() != null ? cinema.getNota() : cinemaEntity.getNota())
                 .build();
 
         repository.saveAndFlush(cinemaAtualizado);
