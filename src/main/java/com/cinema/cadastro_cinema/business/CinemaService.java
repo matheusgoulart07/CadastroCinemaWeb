@@ -3,15 +3,14 @@ package com.cinema.cadastro_cinema.business;
 import com.cinema.cadastro_cinema.infrastructure.entitys.Cinema;
 import com.cinema.cadastro_cinema.infrastructure.repository.CinemaRepository;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional; // <-- 1. ADICIONE ESTE IMPORT
 
 @Service
-
 public class CinemaService {
 
     private final CinemaRepository repository;
 
-    private CinemaService(CinemaRepository repository) {
+    public CinemaService(CinemaRepository repository) {
         this.repository = repository;
     }
 
@@ -20,12 +19,12 @@ public class CinemaService {
     }
 
     public Cinema buscarCinemaPorNome(String nome){
-
         return repository.findByNome(nome).orElseThrow(
                 () -> new RuntimeException("Nome não encontrado")
         );
     }
 
+    @Transactional // <-- 2. ADICIONE ESTA ANOTAÇÃO AQUI
     public void deletarCinemaPorNome(String nome){
         repository.deleteByNome(nome);
     }
